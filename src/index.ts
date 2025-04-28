@@ -20,7 +20,7 @@ app.get('/test', (req, res)=>{
     res.send("server test passed✅")
 })
 
-app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/auth', userRoutes)
 
 app.listen(PORT, async() =>{
     try {

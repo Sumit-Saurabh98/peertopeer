@@ -1,34 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {Routes, Route, Navigate} from "react-router-dom"
+import { Toaster } from "react-hot-toast";
+import RoomsPage from "./pages/RoomsPage"
+import CallPage from "./pages/CallPage"
+import AuthForm from "./pages/AuthForm"
+import { authStore } from "./store/authStore";
+import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {checkAuth, user, checkingAuth} = authStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth])
+
+  if (checkingAuth) return (
+    <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80 z-50">
+      <div className="flex flex-col items-center p-6 rounded-lg">
+        <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
+        <p className="mt-4 text-sm font-medium text-gray-600">Loading authentication status...</p>
+      </div>
+    </div>
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="flex flex-col min-h-screen">
+      {user && <Navbar />}
+      <div className="flex-grow">
+        <Routes>
+          <Route path="/" element={user ? <Navigate to={'/rooms'}/> : <AuthForm/>}/>
+          <Route path="/rooms" element={user ? <RoomsPage/> : <Navigate to="/"/>}/>
+          <Route path="/room/:id" element={user ? <CallPage/> : <Navigate to='/'/>}/>
+          <Route path="*" element={user ? <Navigate to="/rooms"/> : <AuthForm/>}/>
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      {user && <Footer />}
+      <Toaster/>
+    </div>
   )
 }
 
