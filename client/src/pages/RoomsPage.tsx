@@ -67,7 +67,7 @@ const RoomsPage = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredUsers.map((u) => (
-            <Card key={u._id} className="overflow-hidden">
+            <Card key={u._id as string} className="overflow-hidden">
               <CardContent className="p-0">
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
@@ -78,25 +78,25 @@ const RoomsPage = () => {
                         </div>
                         <span
                           className={`absolute bottom-0 right-0 h-3 w-3 rounded-full ${
-                            isUserOnline(u._id) ? 'bg-green-500' : 'bg-gray-400'
+                            isUserOnline(u._id as string) ? 'bg-green-500' : 'bg-gray-400'
                           } ring-2 ring-white`}
                         />
                       </div>
                       <div className="ml-3">
-                        <h3 className="font-medium">{u.name || "User"}</h3>
-                        <span className={`text-xs ${isUserOnline(u._id) ? 'text-green-500' : 'text-gray-400'}`}>
-                          {isUserOnline(u._id) ? 'Online' : 'Offline'}
+                        <h3 className="font-medium">{u.username || "User"}</h3>
+                        <span className={`text-xs ${isUserOnline(u._id as string) ? 'text-green-500' : 'text-gray-400'}`}>
+                          {isUserOnline(u._id as string) ? 'Online' : 'Offline'}
                         </span>
                       </div>
                     </div>
                   </div>
                   <Button
                     className="w-full"
-                    onClick={() => initiateCall(u._id)}
-                    disabled={!isUserOnline(u._id)}
+                    onClick={() => initiateCall(u._id as string)}
+                    disabled={!isUserOnline(u._id as string)}
                   >
                     <Phone className="h-4 w-4 mr-2" />
-                    {isUserOnline(u._id) ? 'Call' : 'Offline'}
+                    {isUserOnline(u._id as string) ? 'Call' : 'Offline'}
                   </Button>
                 </div>
               </CardContent>
