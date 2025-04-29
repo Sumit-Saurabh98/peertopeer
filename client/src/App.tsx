@@ -33,7 +33,7 @@ function App() {
           <Route path="/" element={user ? <Navigate to={'/rooms'}/> : <AuthForm/>}/>
           <Route path="/rooms" element={user ? <RoomsPage/> : <Navigate to="/"/>}/>
           <Route path="/room/:id" element={user ? <CallPage/> : <Navigate to='/'/>}/>
-          <Route path="*" element={user ? <Navigate to="/rooms"/> : <AuthForm/>}/>
+          <Route path="*" element={user ? <Navigate to="/rooms"/> : <Navigate to="/"/>}/>
         </Routes>
       </div>
       {user && <Footer />}

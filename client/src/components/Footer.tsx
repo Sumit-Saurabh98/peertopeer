@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Footer = () =>{
   const currentYear = new Date().getFullYear();
@@ -16,9 +17,9 @@ const Footer = () =>{
           
           <div className="flex flex-col items-center gap-4 md:flex-row">
             <nav className="flex gap-4 text-sm">
-              <a href="#" className="text-gray-500 hover:text-blue-600">Terms</a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">Privacy</a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">Contact</a>
+              <Link to="#" className="text-gray-500 hover:text-blue-600">Terms</Link>
+              <Link to="#" className="text-gray-500 hover:text-blue-600">Privacy</Link>
+              <Link to="#" className="text-gray-500 hover:text-blue-600">Contact</Link>
             </nav>
             
             <div className="flex items-center">
